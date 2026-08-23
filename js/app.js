@@ -1,8 +1,4 @@
 document.addEventListener('DOMContentLoaded', () => {
-    
-    // ==========================================
-    // 1. SIDEBAR & MOBILE OVERLAY MANAGEMENT
-    // ==========================================
     const sidebar = document.querySelector('#sidebar');
     const closeSidebarBtn = document.querySelector('#closeSidebarBtn');
     const expandSidebarBtn = document.querySelector('#expandSidebarBtn');
@@ -37,10 +33,6 @@ document.addEventListener('DOMContentLoaded', () => {
             sidebar.classList.remove('is-collapsed');
         });
     }
-
-    // ==========================================
-    // 2. ACCESSIBILITY: Enter Key Click Trigger
-    // ==========================================
     document.addEventListener('keydown', (e) => {
         if (e.key === 'Enter') {
             const el = e.target;
@@ -51,9 +43,6 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
-    // ==========================================
-    // 3. GLOBAL DROPDOWN LOGIC
-    // ==========================================
     const closeAllDropdowns = () => {
         document.querySelectorAll('.dropdown-menu').forEach(menu => {
             menu.classList.add('hidden');
@@ -108,9 +97,6 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
-    // ==========================================
-    // 4. SEARCH MODAL LOGIC
-    // ==========================================
     const searchModal = document.querySelector('#searchModal');
     const searchInputElem = document.querySelector('#searchInput');
     const closeSearchModalBtn = document.querySelector('#closeSearchModal');
@@ -147,9 +133,6 @@ document.addEventListener('DOMContentLoaded', () => {
         item.addEventListener('click', () => searchModal.classList.add('hidden'));
     });
 
-    // ==========================================
-    // 5. MODEL SELECTOR UPDATE
-    // ==========================================
     const updateModelSelection = (selectedText) => {
         const desktopLabel = document.querySelector('#selectedModelText');
         const mobileLabel = document.querySelector('#mobileModelLabel');
@@ -166,9 +149,6 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
-    // ==========================================
-    // 6. SVG ICONS & MOCK DATA
-    // ==========================================
     const voiceIconHTML = `<img src="assets/icons/voice.svg" alt="voice icon" class="icon-img voice-img" />`;
     const sendIconHTML = `<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="icon-svg"><line x1="12" y1="19" x2="12" y2="5"></line><polyline points="5 12 12 5 19 12"></polyline></svg>`;
     const copyIcon = `<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="icon-svg"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>`;
@@ -239,9 +219,6 @@ console.log(repeatString("Hello"));</code></pre>
         </div>
     `;
 
-    // ==========================================
-    // 7. ACTIVE CHAT ENGINE
-    // ==========================================
     const chatItems = document.querySelectorAll('.chat-item');
     const newChatBtns = document.querySelectorAll('.action-new-chat');
     const mainContent = document.querySelector('#mainContent');
