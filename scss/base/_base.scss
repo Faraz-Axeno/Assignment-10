@@ -1,0 +1,98 @@
+*, *::before, *::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: $font-family;
+    color: $c-text-primary;
+    background-color: $c-bg-main;
+    line-height: 1.5;
+    overflow: hidden;
+    -webkit-font-smoothing: antialiased;
+}
+
+a {
+    text-decoration: none;
+    color: inherit;
+}
+
+button {
+    font-family: inherit;
+    cursor: pointer;
+    border: none;
+    background: none;
+}
+
+input, textarea {
+    font-family: inherit;
+    border: none;
+    outline: none;
+    background: $c-transparent;
+}
+
+ul {
+    list-style: none;
+}
+
+*:focus-visible {
+    outline: rem(2) solid $c-blue-primary;
+    outline-offset: rem(2);
+    border-radius: rem(4);
+}
+
+textarea:focus-visible, input:focus-visible {
+    outline: none;
+}
+
+.hidden {
+    display: none !important;
+}
+
+.user-dropdown-anchor {
+    position: relative;
+    width: 100%;
+}
+
+.mobile-model-wrapper {
+    position: relative;
+}
+
+.model-tag {
+    margin-left: auto;
+    color: $c-text-muted;
+}
+
+.send-icon-wrap {
+    @include flex-center;
+}
+
+.voice-img {
+    filter: brightness(0) invert(1);
+    width: rem(16);
+    height: rem(16);
+}
+
+.model-icon-svg {
+    margin-left: rem(4);
+}
+
+.pin-icon {
+    transform: rotate(45deg);
+}
+
+.preview-img {
+    width: rem(28);
+    height: rem(28);
+    object-fit: cover;
+    border-radius: rem(6);
+}
+
+.copy-btn-bare {
+    color: $c-text-secondary;
+    border: none;
+    background: none;
+    padding: 0;
+    cursor: pointer;
+}

@@ -1,0 +1,371 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="description" content="ChatGPT clone frontend assignment">
+    <title>ChatGPT - Ready to dive in?</title>
+    <link rel="stylesheet" href="css/main.css">
+</head>
+<body>
+    <div class="main-wrapper">
+        
+        <!-- MOBILE SIDEBAR OVERLAY -->
+        <div class="sidebar-overlay" id="sidebarOverlay"></div>
+
+        <!-- ========================================== -->
+        <!-- SIDEBAR NAVIGATION                         -->
+        <!-- ========================================== -->
+        <aside class="sidebar" id="sidebar" aria-label="Main Navigation">
+            <div class="sidebar__collapsed-view">
+                <div class="collapsed-top">
+                    <button class="logo-btn" id="expandSidebarBtn" aria-label="Expand sidebar">
+                        <svg role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="chatgpt-logo icon-svg"><path fill="currentColor" d="M22.2819 9.8211a5.9847 5.9847 0 0 0-.5157-4.9108 6.0462 6.0462 0 0 0-6.5098-2.9A6.0651 6.0651 0 0 0 4.9807 4.1818a5.9847 5.9847 0 0 0-3.9977 2.9 6.0462 6.0462 0 0 0 .7427 7.0966 5.98 5.98 0 0 0 .511 4.9107 6.051 6.051 0 0 0 6.5146 2.9001A5.9847 5.9847 0 0 0 13.2599 24a6.0557 6.0557 0 0 0 5.7718-4.2058 5.9894 5.9894 0 0 0 3.9977-2.9001 6.0557 6.0557 0 0 0-.7475-7.073zm-9.022 12.6081a4.4755 4.4755 0 0 1-2.8764-1.0408l.1419-.0804 4.7783-2.7582a.7948.7948 0 0 0 .3927-.6813v-6.7369l2.02 1.1686a.071.071 0 0 1 .038.052v5.5826a4.504 4.504 0 0 1-4.4945 4.4944zm-9.6607-4.1254a4.4708 4.4708 0 0 1-.5346-3.0137l.142.0852 4.783 2.7582a.7712.7712 0 0 0 .7806 0l5.8428-3.3685v2.3324a.0804.0804 0 0 1-.0332.0615L9.74 19.9502a4.4992 4.4992 0 0 1-6.1408-1.6464zM2.3408 7.8956a4.485 4.485 0 0 1 2.3655-1.9728V11.6a.7664.7664 0 0 0 .3879.6765l5.8144 3.3543-2.0201 1.1685a.0757.0757 0 0 1-.071 0l-4.8303-2.7865A4.504 4.504 0 0 1 2.3408 7.8956zm16.0993 3.8558L12.5973 8.3829V3.6461a.0804.0804 0 0 1 .0332-.0615l4.8303-2.7866a4.4992 4.4992 0 0 1 6.6802 4.66l-.142-.0852-4.783-2.7582a.7712.7712 0 0 0-.7806 0l-5.8428 3.3685v2.3324a.0804.0804 0 0 1 .0332.0615zM8.5276 2.502a4.485 4.485 0 0 1 2.8764 1.0408l-.1419.0804-4.7783 2.7582a.7948.7948 0 0 0-.3927.6813v6.7369l-2.02-1.1686a.071.071 0 0 1-.038-.052V7.0069A4.504 4.504 0 0 1 8.5276 2.502zm3.1784 10.3704L8.8524 11.23l2.8536-1.6416 2.8536 1.6416z"/></svg>
+                    </button>
+                    <button class="btn-icon-bare action-new-chat" aria-label="New Chat"><img src="assets/icons/edit.svg" alt="edit icon" class="icon-img" /></button>
+                    <button class="btn-icon-bare action-search-modal" aria-label="Search"><img src="assets/icons/search.svg" alt="search icon" class="icon-img" /></button>
+                    <button class="btn-icon-bare" aria-label="Chat"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" class="icon-svg"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg></button>
+                </div>
+                <div class="collapsed-bottom"><div class="user-icon user-avatar">FS</div></div>
+            </div>
+
+            <!-- EXPANDED VIEW -->
+            <div class="sidebar__expanded-view">
+                <div class="sidebar__scroll-container">
+                    <div class="sidebar__nav">
+                        <div class="sidebar-brand">
+                            <svg role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="chatgpt-logo icon-svg mobile-logo-only"><path fill="currentColor" d="M22.2819 9.8211a5.9847 5.9847 0 0 0-.5157-4.9108 6.0462 6.0462 0 0 0-6.5098-2.9A6.0651 6.0651 0 0 0 4.9807 4.1818a5.9847 5.9847 0 0 0-3.9977 2.9 6.0462 6.0462 0 0 0 .7427 7.0966 5.98 5.98 0 0 0 .511 4.9107 6.051 6.051 0 0 0 6.5146 2.9001A5.9847 5.9847 0 0 0 13.2599 24a6.0557 6.0557 0 0 0 5.7718-4.2058 5.9894 5.9894 0 0 0 3.9977-2.9001 6.0557 6.0557 0 0 0-.7475-7.073zm-9.022 12.6081a4.4755 4.4755 0 0 1-2.8764-1.0408l.1419-.0804 4.7783-2.7582a.7948.7948 0 0 0 .3927-.6813v-6.7369l2.02 1.1686a.071.071 0 0 1 .038.052v5.5826a4.504 4.504 0 0 1-4.4945 4.4944zm-9.6607-4.1254a4.4708 4.4708 0 0 1-.5346-3.0137l.142.0852 4.783 2.7582a.7712.7712 0 0 0 .7806 0l5.8428-3.3685v2.3324a.0804.0804 0 0 1-.0332.0615L9.74 19.9502a4.4992 4.4992 0 0 1-6.1408-1.6464zM2.3408 7.8956a4.485 4.485 0 0 1 2.3655-1.9728V11.6a.7664.7664 0 0 0 .3879.6765l5.8144 3.3543-2.0201 1.1685a.0757.0757 0 0 1-.071 0l-4.8303-2.7865A4.504 4.504 0 0 1 2.3408 7.8956zm16.0993 3.8558L12.5973 8.3829V3.6461a.0804.0804 0 0 1 .0332-.0615l4.8303-2.7866a4.4992 4.4992 0 0 1 6.6802 4.66l-.142-.0852-4.783-2.7582a.7712.7712 0 0 0-.7806 0l-5.8428 3.3685v2.3324a.0804.0804 0 0 1 .0332.0615zM8.5276 2.502a4.485 4.485 0 0 1 2.8764 1.0408l-.1419.0804-4.7783 2.7582a.7948.7948 0 0 0-.3927.6813v6.7369l-2.02-1.1686a.071.071 0 0 1-.038-.052V7.0069A4.504 4.504 0 0 1 8.5276 2.502zm3.1784 10.3704L8.8524 11.23l2.8536-1.6416 2.8536 1.6416z"/></svg>
+                            <h3 class="sidebar-title desktop-only-text"><span class="primary-logo">ChatGPT</span></h3>
+                        </div>
+                        <div class="sidebar-actions">
+                            <button class="btn-icon-bare action-search-modal" aria-label="Search"><img src="assets/icons/search.svg" alt="search icon" class="icon-img" /></button>
+                            <button class="btn-icon-bare" id="closeSidebarBtn" aria-label="Close sidebar">
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="icon-svg mobile-close-icon"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+                                <img src="assets/icons/layout-sidebar.svg" alt="sidebar icon" class="icon-img desktop-sidebar-icon" />
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="sidebar__top">
+                        <div class="chat active action-new-chat" tabindex="0" role="button"><img src="assets/icons/edit.svg" alt="new chat icon" class="icon-img" /><p class="chat-label">New chat</p></div>
+                        <div class="chat" tabindex="0" role="button"><img src="assets/icons/photo.svg" alt="images icon" class="icon-img" /><p class="chat-label">Images</p></div>
+                        <div class="chat" tabindex="0" role="button"><img src="assets/icons/library.svg" alt="library icon" class="icon-img" /><p class="chat-label">Library</p></div>
+                        <div class="chat" tabindex="0" role="button"><img src="assets/icons/plug.svg" alt="plugins icon" class="icon-img" /><p class="chat-label">Plugins</p></div>
+                        <div class="chat" tabindex="0" role="button"><img src="assets/icons/folder.svg" alt="Projects icon" class="icon-img" /><p class="chat-label">Projects</p></div>
+                        <div class="chat" tabindex="0" role="button"><img src="assets/icons/codex.svg" alt="codex icon" class="icon-img" /><p class="chat-label">Codex</p></div>
+                        <div class="chat" tabindex="0" role="button"><img src="assets/icons/dots.svg" alt="more icon" class="icon-img" /><p class="chat-label">More</p></div>
+                    </div>
+
+                    <div class="sidebar__bottom">
+                        <!-- Group 1: Today -->
+                        <div class="history-group">
+                            <p class="chat-title">Today</p>
+                            <div class="chat-item" data-chat-id="figma" tabindex="0" role="button">
+                                <span class="chat-text">Figma Clone Layout</span>
+                                <div class="chat-actions">
+                                    <button class="action-btn" title="Pin"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon-svg pin-icon"><line x1="12" y1="17" x2="12" y2="22"></line><path d="M5 17h14v-1.76a2 2 0 0 0-1.11-1.79l-1.78-.9A2 2 0 0 1 15 11.24V6a3 3 0 0 0-6 0v5.24a2 2 0 0 1-1.11 1.31l-1.78.9A2 2 0 0 0 5 15.24Z"></path></svg></button>
+                                    <div class="dropdown-wrapper">
+                                        <button class="action-btn dots-btn" title="More"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="1"/><circle cx="19" cy="12" r="1"/><circle cx="5" cy="12" r="1"/></svg></button>
+                                        <div class="dropdown-menu chat-options hidden">
+                                            <button class="menu-item"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 12v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8"/><polyline points="16 6 12 2 8 6"/><line x1="12" y1="2" x2="12" y2="15"/></svg> <span class="menu-str">Share</span></button>
+                                            <button class="menu-item"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg> <span class="menu-str">Rename</span></button>
+                                            <button class="menu-item"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="icon-svg pin-icon"><line x1="12" y1="17" x2="12" y2="22"></line><path d="M5 17h14v-1.76a2 2 0 0 0-1.11-1.79l-1.78-.9A2 2 0 0 1 15 11.24V6a3 3 0 0 0-6 0v5.24a2 2 0 0 1-1.11 1.31l-1.78.9A2 2 0 0 0 5 15.24Z"></path></svg> <span class="menu-str">Pin chat</span></button>
+                                            <button class="menu-item"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="21 8 21 21 3 21 3 8"/><rect x="1" y="3" width="22" height="5"/><line x1="10" y1="12" x2="14" y2="12"/></svg> <span class="menu-str">Archive</span></button>
+                                            <button class="menu-item danger"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg> <span class="menu-str">Delete</span></button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Group 2: Yesterday -->
+                        <div class="history-group">
+                            <p class="chat-title">Yesterday</p>
+                            <div class="chat-item" data-chat-id="sass" tabindex="0" role="button">
+                                <span class="chat-text">Importing Sass Files</span>
+                                <div class="chat-actions">
+                                    <button class="action-btn" title="Pin"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon-svg pin-icon"><line x1="12" y1="17" x2="12" y2="22"></line><path d="M5 17h14v-1.76a2 2 0 0 0-1.11-1.79l-1.78-.9A2 2 0 0 1 15 11.24V6a3 3 0 0 0-6 0v5.24a2 2 0 0 1-1.11 1.31l-1.78.9A2 2 0 0 0 5 15.24Z"></path></svg></button>
+                                    <div class="dropdown-wrapper">
+                                        <button class="action-btn dots-btn" title="More"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="1"/><circle cx="19" cy="12" r="1"/><circle cx="5" cy="12" r="1"/></svg></button>
+                                        <div class="dropdown-menu chat-options hidden">
+                                            <button class="menu-item"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="icon-svg"><path d="M4 12v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8"/><polyline points="16 6 12 2 8 6"/><line x1="12" y1="2" x2="12" y2="15"/></svg> <span class="menu-str">Share</span></button>
+                                            <button class="menu-item"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="icon-svg"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg> <span class="menu-str">Rename</span></button>
+                                            <button class="menu-item"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="icon-svg pin-icon"><line x1="12" y1="17" x2="12" y2="22"></line><path d="M5 17h14v-1.76a2 2 0 0 0-1.11-1.79l-1.78-.9A2 2 0 0 1 15 11.24V6a3 3 0 0 0-6 0v5.24a2 2 0 0 1-1.11 1.31l-1.78.9A2 2 0 0 0 5 15.24Z"></path></svg> <span class="menu-str">Pin chat</span></button>
+                                            <button class="menu-item"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="icon-svg"><polyline points="21 8 21 21 3 21 3 8"/><rect x="1" y="3" width="22" height="5"/><line x1="10" y1="12" x2="14" y2="12"/></svg> <span class="menu-str">Archive</span></button>
+                                            <button class="menu-item danger"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="icon-svg"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg> <span class="menu-str">Delete</span></button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Group 3: Previous 7 Days -->
+                        <div class="history-group">
+                            <p class="chat-title">Previous 7 Days</p>
+                            <div class="chat-item" data-chat-id="html" tabindex="0" role="button">
+                                <span class="chat-text">Sidebar HTML Code</span>
+                                <div class="chat-actions">
+                                    <button class="action-btn" title="Pin"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon-svg pin-icon"><line x1="12" y1="17" x2="12" y2="22"></line><path d="M5 17h14v-1.76a2 2 0 0 0-1.11-1.79l-1.78-.9A2 2 0 0 1 15 11.24V6a3 3 0 0 0-6 0v5.24a2 2 0 0 1-1.11 1.31l-1.78.9A2 2 0 0 0 5 15.24Z"></path></svg></button>
+                                    <div class="dropdown-wrapper">
+                                        <button class="action-btn dots-btn" title="More"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon-svg"><circle cx="12" cy="12" r="1"/><circle cx="19" cy="12" r="1"/><circle cx="5" cy="12" r="1"/></svg></button>
+                                        <div class="dropdown-menu chat-options hidden">
+                                            <button class="menu-item"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="icon-svg"><path d="M4 12v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8"/><polyline points="16 6 12 2 8 6"/><line x1="12" y1="2" x2="12" y2="15"/></svg> <span class="menu-str">Share</span></button>
+                                            <button class="menu-item"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="icon-svg"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg> <span class="menu-str">Rename</span></button>
+                                            <button class="menu-item"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="icon-svg pin-icon"><line x1="12" y1="17" x2="12" y2="22"></line><path d="M5 17h14v-1.76a2 2 0 0 0-1.11-1.79l-1.78-.9A2 2 0 0 1 15 11.24V6a3 3 0 0 0-6 0v5.24a2 2 0 0 1-1.11 1.31l-1.78.9A2 2 0 0 0 5 15.24Z"></path></svg> <span class="menu-str">Pin chat</span></button>
+                                            <button class="menu-item"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="icon-svg"><polyline points="21 8 21 21 3 21 3 8"/><rect x="1" y="3" width="22" height="5"/><line x1="10" y1="12" x2="14" y2="12"/></svg> <span class="menu-str">Archive</span></button>
+                                            <button class="menu-item danger"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="icon-svg"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg> <span class="menu-str">Delete</span></button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Group 4: Older -->
+                        <div class="history-group">
+                            <p class="chat-title">Older</p>
+                            <div class="chat-item" data-chat-id="dom" tabindex="0" role="button">
+                                <span class="chat-text">Vanilla JS DOM manipulation</span>
+                                <div class="chat-actions">
+                                    <button class="action-btn" title="Pin"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon-svg pin-icon"><line x1="12" y1="17" x2="12" y2="22"></line><path d="M5 17h14v-1.76a2 2 0 0 0-1.11-1.79l-1.78-.9A2 2 0 0 1 15 11.24V6a3 3 0 0 0-6 0v5.24a2 2 0 0 1-1.11 1.31l-1.78.9A2 2 0 0 0 5 15.24Z"></path></svg></button>
+                                    <div class="dropdown-wrapper">
+                                        <button class="action-btn dots-btn" title="More"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon-svg"><circle cx="12" cy="12" r="1"/><circle cx="19" cy="12" r="1"/><circle cx="5" cy="12" r="1"/></svg></button>
+                                        <div class="dropdown-menu chat-options hidden">
+                                            <button class="menu-item"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="icon-svg"><path d="M4 12v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8"/><polyline points="16 6 12 2 8 6"/><line x1="12" y1="2" x2="12" y2="15"/></svg> <span class="menu-str">Share</span></button>
+                                            <button class="menu-item"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="icon-svg"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg> <span class="menu-str">Rename</span></button>
+                                            <button class="menu-item"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="icon-svg pin-icon"><line x1="12" y1="17" x2="12" y2="22"></line><path d="M5 17h14v-1.76a2 2 0 0 0-1.11-1.79l-1.78-.9A2 2 0 0 1 15 11.24V6a3 3 0 0 0-6 0v5.24a2 2 0 0 1-1.11 1.31l-1.78.9A2 2 0 0 0 5 15.24Z"></path></svg> <span class="menu-str">Pin chat</span></button>
+                                            <button class="menu-item"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="icon-svg"><polyline points="21 8 21 21 3 21 3 8"/><rect x="1" y="3" width="22" height="5"/><line x1="10" y1="12" x2="14" y2="12"/></svg> <span class="menu-str">Archive</span></button>
+                                            <button class="menu-item danger"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="icon-svg"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg> <span class="menu-str">Delete</span></button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="chat-item" data-chat-id="tips" tabindex="0" role="button">
+                                <span class="chat-text">Frontend assignment tips</span>
+                                <div class="chat-actions">
+                                    <button class="action-btn" title="Pin"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon-svg pin-icon"><line x1="12" y1="17" x2="12" y2="22"></line><path d="M5 17h14v-1.76a2 2 0 0 0-1.11-1.79l-1.78-.9A2 2 0 0 1 15 11.24V6a3 3 0 0 0-6 0v5.24a2 2 0 0 1-1.11 1.31l-1.78.9A2 2 0 0 0 5 15.24Z"></path></svg></button>
+                                    <div class="dropdown-wrapper">
+                                        <button class="action-btn dots-btn" title="More"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon-svg"><circle cx="12" cy="12" r="1"/><circle cx="19" cy="12" r="1"/><circle cx="5" cy="12" r="1"/></svg></button>
+                                        <div class="dropdown-menu chat-options hidden">
+                                            <button class="menu-item"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="icon-svg"><path d="M4 12v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8"/><polyline points="16 6 12 2 8 6"/><line x1="12" y1="2" x2="12" y2="15"/></svg> <span class="menu-str">Share</span></button>
+                                            <button class="menu-item"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="icon-svg"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg> <span class="menu-str">Rename</span></button>
+                                            <button class="menu-item"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="icon-svg pin-icon"><line x1="12" y1="17" x2="12" y2="22"></line><path d="M5 17h14v-1.76a2 2 0 0 0-1.11-1.79l-1.78-.9A2 2 0 0 1 15 11.24V6a3 3 0 0 0-6 0v5.24a2 2 0 0 1-1.11 1.31l-1.78.9A2 2 0 0 0 5 15.24Z"></path></svg> <span class="menu-str">Pin chat</span></button>
+                                            <button class="menu-item"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="icon-svg"><polyline points="21 8 21 21 3 21 3 8"/><rect x="1" y="3" width="22" height="5"/><line x1="10" y1="12" x2="14" y2="12"/></svg> <span class="menu-str">Archive</span></button>
+                                            <button class="menu-item danger"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="icon-svg"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg> <span class="menu-str">Delete</span></button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Sticky Footer with Profile Dropdown -->
+                <div class="sidebar__footer">
+                    <div class="dropdown-wrapper user-dropdown-anchor">
+                        <div class="footer-container" id="userMenuBtn" tabindex="0" role="button">
+                            <div class="user-icon user-avatar">FS</div>
+                            <div class="user-section">
+                                <p class="username">Faraz Siddiqui</p>
+                                <p class="model">Free</p>
+                            </div>
+                        </div>
+                        <div class="dropdown-menu user-options hidden" id="userDropdown">
+                            <button class="menu-item"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="icon-svg"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg> <span class="menu-text-span">Try Plus free</span></button>
+                            <button class="menu-item"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="icon-svg"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg> <span class="menu-text-span">Personalization</span></button>
+                            <button class="menu-item"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="icon-svg"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg> <span class="menu-text-span">Profile</span></button>
+                            <button class="menu-item"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="icon-svg"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg> <span class="menu-text-span">Settings</span></button>
+                            <div class="menu-divider"></div>
+                            <button class="menu-item"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="icon-svg"><circle cx="12" cy="12" r="10"/><line x1="12" y1="17" x2="12.01" y2="17"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/></svg> <span class="menu-text-span">Help</span></button>
+                            <button class="menu-item"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="icon-svg"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg> <span class="menu-text-span">Log out</span></button>
+                        </div>
+                    </div>
+                    <button class="btn-outline"><img src="assets/icons/building-store.svg" alt="shop icon" class="icon-img" /> <span class="btn-text-span">Claim offer</span></button>
+                </div>
+            </div>
+        </aside>
+
+        <!-- ========================================== -->
+        <!-- MAIN CHAT AREA                             -->
+        <!-- ========================================== -->
+        <div class="content">
+            <div class="content__top">
+                <div class="mobile-header-left">
+                    <button class="btn-icon-bare mobile-toggle-btn" id="mobileToggleBtn" aria-label="Open sidebar">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="icon-svg"><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
+                    </button>
+                    
+                    <div class="dropdown-wrapper mobile-model-wrapper">
+                        <button class="mobile-title-btn" id="mobileModelTrigger">
+                            <span id="mobileModelLabel">ChatGPT</span>
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="icon-svg model-icon-svg"><polyline points="6 9 12 15 18 9"></polyline></svg>
+                        </button>
+                        <div class="dropdown-menu model-options hidden" id="mobileModelDropdown">
+                            <button class="menu-item active"><span class="model-name">ChatGPT</span> <small class="model-tag">Auto</small></button>
+                            <button class="menu-item"><span class="model-name">GPT-4o</span> <small class="model-tag">Fast</small></button>
+                            <button class="menu-item"><span class="model-name">GPT-4o1</span> <small class="model-tag">Reasoning</small></button>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="mobile-header-right">
+                    <button class="chat-icon btn-text" type="button" aria-label="Free offer">
+                        <img src="assets/icons/building-store.svg" alt="shop icon" class="icon-img" />
+                        <span class="offer-text">Free offer</span>
+                    </button>
+                    <button class="btn-icon-bare action-new-chat mobile-new-chat-icon" type="button" aria-label="New chat">
+                        <img src="assets/icons/edit.svg" alt="new chat icon" class="icon-img" />
+                    </button>
+                    <button class="chat-icon btn-icon desktop-refresh-icon" type="button" aria-label="Refresh">
+                        <img src="assets/icons/clock.svg" alt="clock icon" class="icon-img" />
+                    </button>
+                </div>
+            </div>
+
+            <main class="content__middle" id="mainContent">
+                
+                <!-- 1. Title -->
+                <h1 id="welcomeTitle" class="welcome-title">How can I help, Faraz?</h1>
+
+                <!-- 2. Chat Stream -->
+                <div class="chat-stream hidden" id="chatStream"></div>
+
+                <!-- 3. Composer -->
+                <div class="search" id="composerContainer">
+                    
+                    <div id="filePreviewContainer" class="file-preview-container"></div>
+                    
+                    <div class="dropdown-wrapper search__add-wrap">
+                        <button class="search__add" type="button" id="attachmentBtn" aria-label="Add attachment">
+                            <img src="assets/icons/plus.svg" alt="plus icon" class="icon-img" />
+                        </button>
+                        
+                        <div class="dropdown-menu attachment-options hidden" id="attachmentDropdown">
+                            <button class="menu-item" id="uploadFileAction">
+                                <div class="icon-wrap"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="icon-svg"><path d="M21.44 11.05l-9.19 9.19a6 6 0 0 1-8.49-8.49l9.19-9.19a4 4 0 0 1 5.66 5.66l-9.2 9.19a2 2 0 0 1-2.83-2.83l8.49-8.48"/></svg></div>
+                                <div class="menu-text"><strong class="menu-str">Add photos & files</strong><span class="menu-sub">Upload from computer</span></div>
+                            </button>
+                            <button class="menu-item">
+                                <div class="icon-wrap"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="icon-svg"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"/><path d="M12 8v8M8 12h8"/></svg></div>
+                                <div class="menu-text"><strong class="menu-str">Add from library</strong><span class="menu-sub">Browse and search your files</span></div>
+                            </button>
+                            <button class="menu-item">
+                                <div class="icon-wrap"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="icon-svg"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg></div>
+                                <div class="menu-text"><strong class="menu-str">Create image</strong><span class="menu-sub">Visualize anything</span></div>
+                            </button>
+                            <button class="menu-item">
+                                <div class="icon-wrap"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="icon-svg"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg></div>
+                                <div class="menu-text"><strong class="menu-str">Web search</strong><span class="menu-sub">Find real-time news and info</span></div>
+                            </button>
+                            <button class="menu-item">
+                                <div class="icon-wrap"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="icon-svg"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg></div>
+                                <div class="menu-text"><strong class="menu-str">Maps</strong><span class="menu-sub">Find Nearby Places</span></div>
+                            </button>
+                            <button class="menu-item">
+                                <div class="icon-wrap"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="icon-svg"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/></svg></div>
+                                <div class="menu-text"><strong class="menu-str">Shopping</strong><span class="menu-sub">Find products you'll love</span></div>
+                            </button>
+                            <button class="menu-item">
+                                <div class="icon-wrap"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="icon-svg"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/><line x1="11" y1="8" x2="11" y2="14"/><line x1="8" y1="11" x2="14" y2="11"/></svg></div>
+                                <div class="menu-text"><strong class="menu-str">Deep research</strong><span class="menu-sub">Get a detailed report</span></div>
+                            </button>
+                            <button class="menu-item">
+                                <div class="icon-wrap"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="icon-svg"><path d="M12 2a10 10 0 0 0-3.16 19.49c.5.09.68-.22.68-.48l-.01-1.7c-2.78.6-3.37-1.34-3.37-1.34-.45-1.15-1.11-1.46-1.11-1.46-.91-.62.07-.6.07-.6 1 .07 1.53 1.03 1.53 1.03.88 1.51 2.31 1.07 2.87.82.09-.64.35-1.07.63-1.32-2.22-.25-4.56-1.11-4.56-4.94 0-1.09.39-1.98 1.03-2.68-.1-.25-.45-1.27.1-2.64 0 0 .84-.27 2.75 1.02a9.58 9.58 0 0 1 5 0c1.9-1.29 2.75-1.02 2.75-1.02.55 1.37.2 2.39.1 2.64.64.7 1.03 1.59 1.03 2.68 0 3.84-2.34 4.68-4.57 4.93.36.31.68.92.68 1.85l-.01 2.75c0 .27.18.58.69.48A10 10 0 0 0 12 2z"/></svg></div>
+                                <div class="menu-text"><strong class="menu-str">GitHub</strong><span class="menu-sub">Triage PRs, issues, CI, and publish flows</span></div>
+                            </button>
+                        </div>
+                    </div>
+
+                    <input type="file" id="hiddenFileInput" class="hidden" multiple>
+                    
+                    <textarea class="search__input" id="messageInput" rows="1" placeholder="Ask anything"></textarea>
+
+                    <div class="search__actions">
+                        <div class="dropdown-wrapper desktop-model-wrapper">
+                            <button class="search__think" type="button" id="modelBtn">
+                                <img src="assets/icons/brain.svg" alt="brain icon" class="icon-img" />
+                                <span id="selectedModelText" class="model-text-span">GPT-4o</span>
+                                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="icon-svg model-icon-svg"><path d="M6 9l6 6 6-6"/></svg>
+                            </button>
+                            <div class="dropdown-menu model-options hidden" id="modelDropdown">
+                                <button class="menu-item active"><span class="model-name">GPT-4o</span> <small class="model-tag">Fast</small></button>
+                                <button class="menu-item"><span class="model-name">GPT-4o1</span> <small class="model-tag">Reasoning</small></button>
+                            </div>
+                        </div>
+
+                        <button class="search__mic" type="button" aria-label="Voice input">
+                            <img src="assets/icons/microphone.svg" alt="mic icon" class="icon-img" />
+                        </button>
+                        
+                        <button class="search__voice" type="button" id="sendBtn" aria-label="Send message">
+                            <span class="icon-wrap send-icon-wrap" id="sendBtnIcon">
+                                <img src="assets/icons/voice.svg" alt="voice icon" class="icon-img voice-img" />
+                            </span>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- 4. Suggestions -->
+                <div class="suggestions" id="suggestionsBox">
+                    <button class="suggestions__btn" type="button"><img src="assets/icons/photo.svg" alt="photo icon" class="icon-img" /><span class="sugg-text">Create an image</span><span class="sugg-close-btn">&times;</span></button>
+                    <button class="suggestions__btn" type="button"><img src="assets/icons/pencil.svg" alt="pencil icon" class="icon-img" /><span class="sugg-text">Write or edit</span><span class="sugg-close-btn">&times;</span></button>
+                    <button class="suggestions__btn" type="button"><img src="assets/icons/world.svg" alt="world icon" class="icon-img" /><span class="sugg-text">Search the web</span><span class="sugg-close-btn">&times;</span></button>
+                </div>
+
+                <!-- 5. Disclaimer -->
+                <p class="disclaimer-text hidden" id="disclaimerText">ChatGPT can make mistakes. Check important info.</p>
+
+            </main>
+        </div>
+        
+        <!-- ========================================== -->
+        <!-- SEARCH MODAL (OVERLAY)                     -->
+        <!-- ========================================== -->
+        <div class="modal-overlay hidden" id="searchModal">
+            <div class="search-modal-content">
+                <div class="search-modal-header">
+                    <input type="text" placeholder="Search..." class="search-modal-input" id="searchInput">
+                    <button class="btn-icon-bare close-modal-btn" id="closeSearchModal" aria-label="Close search">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="icon-svg"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+                    </button>
+                </div>
+                <div class="search-modal-body">
+                    <div class="recent-label">Today</div>
+                    <ul class="recent-list">
+                        <li class="recent-item" tabindex="0" role="button">
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#8e8ea0" stroke-width="2" class="icon-svg"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+                            <span class="recent-text">Figma Clone Layout</span>
+                        </li>
+                        <li class="recent-item" tabindex="0" role="button">
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#8e8ea0" stroke-width="2" class="icon-svg"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+                            <span class="recent-text">Importing Sass Files</span>
+                        </li>
+                        <li class="recent-item" tabindex="0" role="button">
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#8e8ea0" stroke-width="2" class="icon-svg"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+                            <span class="recent-text">Sidebar HTML Code</span>
+                        </li>
+                        <li class="recent-item" tabindex="0" role="button">
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#8e8ea0" stroke-width="2" class="icon-svg"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+                            <span class="recent-text">Create Card Stack Interaction</span>
+                        </li>
+                        <li class="recent-item" tabindex="0" role="button">
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#8e8ea0" stroke-width="2" class="icon-svg"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+                            <span class="recent-text">Explain Flexbox Alignment</span>
+                        </li>
+                        <li class="recent-item" tabindex="0" role="button">
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#8e8ea0" stroke-width="2" class="icon-svg"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+                            <span class="recent-text">React परिचय</span>
+                        </li>
+                        <li class="recent-item" tabindex="0" role="button">
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#8e8ea0" stroke-width="2" class="icon-svg"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+                            <span class="recent-text">Explain HTML Line</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+    </div>
+    
+    <script src="js/app.js"></script>
+</body>
+</html>
