@@ -1,3 +1,7 @@
+@use '../abstracts/variables' as *;
+@use '../abstracts/functions' as *;
+@use '../abstracts/mixins' as *;
+
 *, *::before, *::after {
     box-sizing: border-box;
     margin: 0;
@@ -95,4 +99,39 @@ textarea:focus-visible, input:focus-visible {
     background: none;
     padding: 0;
     cursor: pointer;
+}
+
+/* --- ADDED UI STATE MODIFIERS --- */
+.action-btn.active {
+    color: $c-blue-primary;
+    background-color: rgba(59, 130, 246, 0.08);
+    
+    .icon-svg {
+        stroke: $c-blue-primary;
+        fill: rgba(59, 130, 246, 0.1);
+    }
+}
+
+.search__voice.generating {
+    background-color: transparent;
+    color: $c-text-primary;
+    
+    .icon-svg {
+        filter: none;
+        stroke: $c-text-primary;
+        fill: $c-text-primary;
+    }
+}
+
+.bubble.error-state {
+    background-color: rgba(239, 68, 68, 0.1) !important;
+    border: 1px solid $c-danger;
+    color: $c-danger !important;
+}
+
+.no-results-msg {
+    padding: rem(24);
+    text-align: center;
+    color: $c-text-muted;
+    font-size: rem(14);
 }

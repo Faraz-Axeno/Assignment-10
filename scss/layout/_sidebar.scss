@@ -1,3 +1,7 @@
+@use '../abstracts/variables' as *;
+@use '../abstracts/functions' as *;
+@use '../abstracts/mixins' as *;
+
 .sidebar-overlay {
     display: none;
     position: fixed;
@@ -155,7 +159,7 @@
 
             &.active {
                 color: $c-text-primary;
-                background-color: $c-active-bg;
+                background-color: $c-bg-active-light;
 
                 .icon-img, .icon-svg {
                     opacity: 1;

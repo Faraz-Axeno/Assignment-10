@@ -1,0 +1,62 @@
+@use '../abstracts/variables' as *;
+@use '../abstracts/functions' as *;
+@use '../abstracts/mixins' as *;
+
+.logo-btn, .btn-icon-bare {
+    width: rem(40);
+    height: rem(40);
+    @include flex-center;
+    background: none;
+    border: none;
+    cursor: pointer;
+    border-radius: rem(8);
+    transition: background $transition-speed;
+    color: $c-text-primary;
+
+    &:hover {
+        background-color: $c-bg-hover;
+    }
+}
+
+.logo-btn .chatgpt-logo {
+    width: rem(24);
+    height: rem(24);
+    min-width: rem(24);
+    min-height: rem(24);
+    display: block;
+    flex-shrink: 0;
+}
+
+.btn-icon-bare .icon-img, .btn-icon-bare .icon-svg {
+    width: rem(18);
+    height: rem(18);
+}
+
+.sidebar__nav .btn-icon-bare {
+    width: rem(32);
+    height: rem(32);
+}
+
+.action-btn {
+    @include flex-center;
+    padding: rem(4);
+    border-radius: rem(4);
+    color: $c-text-muted;
+    background: $c-transparent;
+    transition: color 0.2s, background 0.2s;
+
+    &:hover, &:focus-visible {
+        color: $c-text-primary;
+        background-color: $c-hover-light;
+    }
+
+    &.active {
+        color: $c-blue-primary;
+        background-color: rgba(59, 130, 246, 0.08);
+        
+        .icon-svg {
+            stroke: $c-blue-primary;
+            fill: rgba(59, 130, 246, 0.1);
+        }
+    }
+}

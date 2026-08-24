@@ -1,0 +1,87 @@
+@use '../abstracts/variables' as *;
+@use '../abstracts/functions' as *;
+@use '../abstracts/mixins' as *;
+
+.dropdown-wrapper {
+    position: relative;
+}
+
+.dropdown-menu {
+    position: absolute;
+    background-color: $c-white;
+    border: 1px solid $c-border;
+    border-radius: rem(12);
+    box-shadow: $shadow-composer;
+    z-index: 100;
+    display: flex;
+    flex-direction: column;
+    padding: rem(8);
+    min-width: rem(160);
+
+    &.hidden {
+        display: none !important;
+    }
+
+    .menu-item {
+        display: flex;
+        align-items: center;
+        gap: rem(12);
+        padding: rem(10) rem(12);
+        border-radius: rem(6);
+        font-size: rem(14);
+        color: $c-text-primary;
+        text-align: left;
+        cursor: pointer;
+        transition: background $transition-speed;
+        background-color: $c-transparent;
+        border: none;
+        width: 100%;
+
+        &:hover, &:focus-visible {
+            background-color: $c-bg-hover;
+        }
+
+        &.danger {
+            color: $c-danger;
+
+            .icon-svg {
+                stroke: $c-danger;
+            }
+        }
+
+        &.active {
+            font-weight: 600;
+            background-color: $c-bg-active-dark;
+        }
+    }
+
+    .menu-divider {
+        height: 1px;
+        background-color: $c-border;
+        margin: rem(4) 0;
+    }
+}
+
+.chat-options {
+    bottom: calc(100% + #{rem(4)});
+    top: auto;
+    right: 0;
+    width: rem(180);
+}
+
+.user-options {
+    bottom: calc(100% + #{rem(8)});
+    left: 0;
+    width: 100%;
+    min-width: rem(230);
+    transform-origin: bottom left;
+    z-index: 2000;
+    top: auto;
+}
+
+.model-options {
+    bottom: 120%;
+    left: 50%;
+    transform: translateX(-50%);
+    width: rem(200);
+}

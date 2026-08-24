@@ -1,34 +1,31 @@
+@use '../abstracts/functions' as *;
 $c-bg-main: #fcfcfc;
 $c-bg-hover: #ececec;
 $c-bg-active: #ececec;
 $c-user-bubble: #f0f4f9;
-
+$c-bg-sidebar: #f9f9f9; 
+$c-bg-composer: #f4f4f4;
 $c-text-primary: #000000;
 $c-text-secondary: #0d0d0d;
 $c-text-muted: #8e8ea0;
 $c-text-tertiary: #0d0d0d69;
-
 $c-border: #e5e5e5;
 $c-border-focus: #d1d1d1;
 $c-scrollbar-thumb: #d4d4d4;
-
 $c-blue-primary: #3ba1f6; 
 $c-danger: #ef4444;
 $c-white: #ffffff;
 $c-black: #000000;
 $c-transparent: transparent;
-
 $c-overlay-bg: rgba(0, 0, 0, 0.5);
 $c-shadow-light: rgba(0, 0, 0, 0.06);
 $c-shadow-focus: rgba(0, 0, 0, 0.08);
 $c-shadow-medium: rgba(0, 0, 0, 0.15);
 $c-shadow-heavy: rgba(0, 0, 0, 0.2);
-
 $c-bg-active-light: rgba(0, 0, 0, 0.03);
 $c-hover-light: rgba(0, 0, 0, 0.05);
 $c-bg-active-dark: rgba(0, 0, 0, 0.183);
 $c-blue-hover: rgba(59, 130, 246, 0.08);
-
 $font-family: "Open Sans", system-ui, -apple-system, sans-serif;
 $transition-speed: 0.15s;
 $shadow-composer: 0 rem(4) rem(16) $c-shadow-light;

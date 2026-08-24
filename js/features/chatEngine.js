@@ -1,4 +1,4 @@
-import { mockChats, actionMenuHTML, voiceIconHTML, sendIconHTML } from '../data/mockData.js';
+import { mockChats, actionMenuHTML, voiceIconHTML, sendIconHTML, stopIconHTML } from '../data/mockData.js';
 
 export function initChatEngine() {
     const chatItems = document.querySelectorAll('.chat-item');
@@ -16,10 +16,12 @@ export function initChatEngine() {
     const sidebar = document.querySelector('#sidebar');
     const sidebarOverlay = document.querySelector('#sidebarOverlay');
 
+    let isGenerating = false;
+
     const resetComposer = () => {
         messageInput.value = '';
         messageInput.style.height = 'auto';
-        sendBtn.classList.remove('send-active');
+        sendBtn.classList.remove('send-active', 'generating');
         sendBtnIcon.innerHTML = voiceIconHTML;
         composerContainer.classList.remove('is-multiline');
         filePreviewContainer.innerHTML = '';
@@ -96,14 +98,18 @@ export function initChatEngine() {
         this.style.height = (this.scrollHeight) + 'px';
         
         if (this.value.trim() !== '') {
-            sendBtn.classList.add('send-active');
-            sendBtnIcon.innerHTML = sendIconHTML;
+            if (!isGenerating) {
+                sendBtn.classList.add('send-active');
+                sendBtnIcon.innerHTML = sendIconHTML;
+            }
             if (!mainContent.classList.contains('chat-mode')) {
                 suggestionsBox.classList.add('hide-suggestions');
             }
         } else {
-            sendBtn.classList.remove('send-active');
-            sendBtnIcon.innerHTML = voiceIconHTML;
+            if (!isGenerating) {
+                sendBtn.classList.remove('send-active');
+                sendBtnIcon.innerHTML = voiceIconHTML;
+            }
             if (!mainContent.classList.contains('chat-mode')) {
                 suggestionsBox.classList.remove('hide-suggestions');
             }
@@ -113,18 +119,19 @@ export function initChatEngine() {
     messageInput.addEventListener('keydown', (e) => {
         if (e.key === 'Enter' && !e.shiftKey) {
             e.preventDefault();
-            handleUserSubmit();
+            if (!isGenerating && messageInput.value.trim() !== '') handleUserSubmit();
         }
     });
 
     sendBtn.addEventListener('click', () => {
-        if (messageInput.value.trim() !== '') handleUserSubmit();
+        if (!isGenerating && messageInput.value.trim() !== '') handleUserSubmit();
     });
 
     function handleUserSubmit() {
         const text = messageInput.value.trim();
         if (!text) return;
 
+        isGenerating = true; 
         startChatUI();
         document.querySelectorAll('.chat, .chat-item').forEach(el => el.classList.remove('active'));
 
@@ -134,6 +141,9 @@ export function initChatEngine() {
         chatStream.appendChild(userMsg);
 
         resetComposer();
+
+        sendBtn.classList.add('generating', 'send-active');
+        sendBtnIcon.innerHTML = stopIconHTML;
 
         const aiMsg = document.createElement('div');
         aiMsg.className = 'message ai';
@@ -146,21 +156,49 @@ export function initChatEngine() {
         setTimeout(() => {
             const loadedAiMsg = document.querySelector('#' + aiMsg.id);
             if (loadedAiMsg) {
-                loadedAiMsg.querySelector('.bubble').innerHTML = `<p class="chat-desc">This is a simulated AI response. You asked: <em>"${text}"</em></p>`;
-                const actionsDiv = document.createElement('div');
-                actionsDiv.innerHTML = actionMenuHTML;
-                loadedAiMsg.appendChild(actionsDiv.firstElementChild);
+                if (text.toLowerCase() === 'error') {
+                    loadedAiMsg.querySelector('.bubble').classList.add('error-state');
+                    loadedAiMsg.querySelector('.bubble').innerHTML = `Failed to get a response. Please try again.`;
+                } else {
+                    loadedAiMsg.querySelector('.bubble').innerHTML = `<p class="chat-desc">This is a simulated AI response. You asked: <em>"${text}"</em></p>`;
+                    const actionsDiv = document.createElement('div');
+                    actionsDiv.innerHTML = actionMenuHTML;
+                    loadedAiMsg.appendChild(actionsDiv.firstElementChild);
+                }
                 chatStream.scrollTop = chatStream.scrollHeight;
             }
-        }, 1200);
+
+            // Restore from generating state
+            isGenerating = false;
+            sendBtn.classList.remove('generating');
+            if (messageInput.value.trim() === '') {
+                sendBtn.classList.remove('send-active');
+                sendBtnIcon.innerHTML = voiceIconHTML;
+            } else {
+                sendBtnIcon.innerHTML = sendIconHTML;
+            }
+
+        }, 1500);
     }
 
     chatStream.addEventListener('click', (e) => {
+        // Native Clipboard Copy
         const copyBtn = e.target.closest('.copy-code-btn') || e.target.closest('.copy-btn');
         if (copyBtn) {
-            const originalHTML = copyBtn.innerHTML;
-            copyBtn.innerHTML = `<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="icon-svg"><polyline points="20 6 9 17 4 12"></polyline></svg> Copied!`;
-            setTimeout(() => { copyBtn.innerHTML = originalHTML; }, 2000);
+            let textToCopy = '';
+            const codeBlock = copyBtn.closest('.code-block');
+            if (codeBlock) {
+                textToCopy = codeBlock.querySelector('code').innerText;
+            } else {
+                const bubble = copyBtn.closest('.message.ai').querySelector('.bubble');
+                textToCopy = bubble.innerText;
+            }
+
+            navigator.clipboard.writeText(textToCopy).then(() => {
+                const originalHTML = copyBtn.innerHTML;
+                copyBtn.innerHTML = `<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="icon-svg"><polyline points="20 6 9 17 4 12"></polyline></svg> Copied!`;
+                setTimeout(() => { copyBtn.innerHTML = originalHTML; }, 2000);
+            });
         }
 
         if (e.target.closest('.like-btn')) {
@@ -174,7 +212,8 @@ export function initChatEngine() {
 
         if (e.target.closest('.regenerate-btn')) {
             const msgElement = e.target.closest('.message.ai');
-            msgElement.querySelector('.message-actions').remove();
+            if(msgElement.querySelector('.message-actions')) msgElement.querySelector('.message-actions').remove();
+            msgElement.querySelector('.bubble').classList.remove('error-state');
             msgElement.querySelector('.bubble').innerHTML = '<span class="typing-indicator"></span>';
             setTimeout(() => {
                 msgElement.querySelector('.bubble').innerHTML = `<p class="chat-desc">This is a regenerated mock response based on your action.</p>`;
