@@ -1,48 +1,67 @@
-# ChatGPT Frontend UI Clone
+# ChatGPT Web Application UI Recreation
 
-A high-fidelity, frontend-only recreation of the ChatGPT web application interface. This project was built to demonstrate advanced frontend UI architecture, responsive design, and state management using purely native web technologies. 
+A high-fidelity, frontend-only recreation of the ChatGPT web application interface. This project was built from the ground up to showcase advanced frontend UI architecture, responsive design, and modular state management using purely native web technologies. No frameworks, libraries, or external APIs were used; all application data, modals, popups, and interactions are simulated entirely on the client side.
 
-No frameworks, libraries, or external APIs were used in this project. All data and interactions are simulated on the client side.
+---
 
 ## 🚀 Tech Stack
 
-- **HTML5**: Semantic markup (`<aside>`, `<main>`, `<button>`) for accessibility and structure.
-- **SCSS / CSS3**: Custom design system, CSS variables, Flexbox layout, and BEM-inspired class naming.
-- **Vanilla JavaScript**: DOM manipulation, event delegation, and mock state management.
+* **HTML5**: Semantic markup (`<aside>`, `<main>`, `<section>`, `<header>`, `<nav>`, `<button>`) structured for accessibility, screen readers, and clean heading hierarchies.
+* **SCSS / CSS3**: Custom design tokens, CSS custom properties, responsive Flexbox and CSS Grid layouts, and BEM-inspired class naming.
+* **Vanilla JavaScript**: Modular ES6 architecture handling DOM manipulation, event delegation, search filtering, auto-growing textareas, dropdown popups, and simulated AI streaming responses.
+
+---
 
 ## ✨ Features Implemented
 
-- **Responsive Layout**: Fluid transition from a desktop sidebar layout to a mobile drawer/overlay layout using modern CSS media queries.
-- **Component Reordering**: Dynamic shifting of UI elements (e.g., prompt suggestions moving from below the composer on desktop to above the composer on mobile) using CSS Flexbox `order`.
-- **Dynamic Message Composer**: An auto-growing `<textarea>` that adjusts its height based on user input, paired with a fully functional UI for file attachment previews.
-- **Mock AI Chat Engine**: Simulated conversation flow with typing indicators, artificial delays, and predefined static responses (including code block rendering).
-- **Interactive UI Elements**: Fully functional frontend dropdowns (Model Selector, User Profile, Message Options, Attachments), Modals (Search), and active button states (Like/Dislike, Copy code).
-- **SVG Iconography**: High-quality, inline SVGs used for all icons ensuring crisp scaling and easy styling without external font dependencies.
-- **Accessibility (A11y)**: Clean focus states (`:focus-visible`), semantic tags, and keyboard-friendly navigation (e.g., `Enter` key support on chat items).
+* **Fluid Responsive Layout**: Seamless transition from a persistent desktop sidebar layout to an off-canvas mobile drawer/overlay layout across multiple device breakpoints.
+* **Dynamic Component Reordering**: CSS Flexbox order adjustments ensuring prompt suggestions reposition fluidly from below the composer on desktop to above it on mobile screens.
+* **Interactive Message Composer**: A multi-line auto-growing `<textarea>` that adjusts its height based on user input, paired with a fully functional file attachment preview system (file names, sizes, error states, and remove triggers).
+* **Simulated AI Chat Engine**: Asynchronous conversation flow with typing indicators, artificial delays, static responses, and rich-text code block presentations.
+* **Interactive Modals & Popups**: Fully functional modal dialogs (including Search and Settings) and floating popups triggered seamlessly via interface actions.
+* **Three-Dot Action Menus**: Contextual popups triggered by clicking the three-dot options menu on individual chat history items or message cards, supporting actions like renaming, deleting, or managing conversation preferences.
+* **Fully Wired UI Controls**: Frontend dropdowns (Model Selector, User Profile menus, message actions), real-time conversation search filtering, and persistent active states (likes, dislikes, copying).
+* **SVG Iconography**: Crisp, inline SVG icons used throughout the app for all interface actions without external font dependencies.
+* **Accessibility (A11y)**: Focus-visible states, keyboard-friendly navigation, proper ARIA labeling, and high-contrast compliance.
 
-## 📁 Project Structure
+---
 
-The project follows a modular file structure to keep logic and styling highly maintainable.
+## 📁 Complete Folder Structure
 
-```text
+```ChatGPT Clone
 /
-├── css/
-│   ├── abstracts/
-│   │   ├── _variables.scss      # Design tokens (colors, fonts, shadows)
-│   │   ├── _functions.scss      # Utility functions (e.g., px to rem)
-│   │   └── _mixins.scss         # Reusable CSS chunks (flex-center, etc.)
-│   ├── base/
-│   │   └── _base.scss           # Resets and global element styles
-│   ├── layout/
-│   │   ├── _sidebar.scss        # Sidebar navigation and history groups
-│   │   └── _content.scss        # Main chat wrapper and header layout
-│   ├── components/
-│   │   ├── _components.scss     # Chat bubbles, composer, and dropdowns
-│   │   └── _media-queries.scss  # Breakpoints and responsive overrides
-│   └── main.scss                # Main entry file importing all partials
-├── js/
-│   ├── data.js                  # Mock chat histories and SVG icon strings
-│   └── app.js                   # Core DOM logic and event listeners
+├── index.html
+├── README.md
 ├── assets/
-│   └── icons/                   # Raw SVG files
-└── index.html                   # Main semantic HTML structure
+├── css/
+│   ├── main.css
+│   └── main.css.map
+├── js/
+│   ├── app.js
+│   ├── data/
+│   │   └── mockData.js
+│   ├── features/
+│   │   └── chatEngine.js
+│   └── ui/
+│       ├── attachment.js
+│       ├── dropdowns.js
+│       ├── modal.js
+│       └── sidebar.js
+└── scss/
+    ├── main.scss
+    ├── abstracts/
+    │   ├── _functions.scss
+    │   ├── _mixins.scss
+    │   └── _variables.scss
+    ├── base/
+    │   └── _base.scss
+    ├── components/
+    │   ├── _buttons.scss
+    │   ├── _chat.scss
+    │   ├── _composer.scss
+    │   ├── _dropdowns.scss
+    │   ├── _media-queries.scss
+    │   └── _modals.scss
+    └── layout/
+        ├── _content.scss
+        └── _sidebar.scss
